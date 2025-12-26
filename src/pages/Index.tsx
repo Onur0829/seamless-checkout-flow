@@ -9,14 +9,14 @@ import OrderSummary from '@/components/OrderSummary';
 const packages = [
   {
     id: 'starter',
-    name: 'Starter Retainer',
+    name: 'Sınırsız S',
     price: 299,
     includedMinutes: 2000,
     overageRate: 0.13,
   },
   {
     id: 'growth',
-    name: 'Growth Retainer',
+    name: 'Sınırsız M',
     price: 699,
     includedMinutes: 5000,
     overageRate: 0.12,
@@ -24,7 +24,7 @@ const packages = [
   },
   {
     id: 'scale',
-    name: 'Scale Retainer',
+    name: 'Sınırsız L',
     price: 1299,
     includedMinutes: 10000,
     overageRate: 0.11,
