@@ -25,8 +25,8 @@ const PackageCard = ({
       className={`option-card ${isSelected ? 'selected' : ''}`}
     >
       {isPopular && (
-        <div className="absolute top-4 right-4 bg-primary text-primary-foreground text-xs font-medium px-3 py-1 rounded-full">
-          Popular
+        <div className="bg-primary text-primary-foreground text-xs font-medium px-3 py-1 rounded-full w-fit mb-2">
+          Popüler
         </div>
       )}
       <h3 className="text-lg font-semibold mb-2">{name}</h3>
