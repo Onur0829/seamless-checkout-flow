@@ -9,31 +9,40 @@ import OrderSummary from '@/components/OrderSummary';
 const packages = [
   {
     id: 'starter',
-    name: 'Başlangıç',
-    price: 149,
-    features: ['5.000 mesaj/ay', 'Temel analitik', 'E-posta desteği'],
+    name: 'Starter Retainer',
+    price: 299,
+    includedMinutes: 2000,
+    overageRate: 0.13,
   },
   {
-    id: 'pro',
-    name: 'Profesyonel',
-    price: 299,
-    features: ['25.000 mesaj/ay', 'Gelişmiş analitik', 'Öncelikli destek', 'API erişimi'],
+    id: 'growth',
+    name: 'Growth Retainer',
+    price: 699,
+    includedMinutes: 5000,
+    overageRate: 0.12,
     isPopular: true,
   },
   {
-    id: 'enterprise',
-    name: 'Kurumsal',
-    price: 599,
-    features: ['Sınırsız mesaj', 'Tam analitik', '7/24 destek', 'Özel entegrasyonlar'],
+    id: 'scale',
+    name: 'Scale Retainer',
+    price: 1299,
+    includedMinutes: 10000,
+    overageRate: 0.11,
   },
 ];
+
+const getRate = (minutes: number): number => {
+  if (minutes <= 2500) return 0.14;
+  if (minutes <= 7000) return 0.13;
+  return 0.12;
+};
 
 const PHONE_FEE = 50;
 
 const Index = () => {
   const [planType, setPlanType] = useState<'unlimited' | 'prepaid'>('unlimited');
-  const [selectedPackage, setSelectedPackage] = useState('pro');
-  const [credits, setCredits] = useState(2500);
+  const [selectedPackage, setSelectedPackage] = useState('growth');
+  const [minutes, setMinutes] = useState(2500);
   const [includePhone, setIncludePhone] = useState(false);
 
   const currentPackage = packages.find((p) => p.id === selectedPackage);
@@ -76,12 +85,13 @@ const Index = () => {
             >
               {planType === 'unlimited' ? (
                 <div className="grid sm:grid-cols-3 gap-4 animate-fade-up" style={{ animationDelay: '0.2s' }}>
-                  {packages.map((pkg, index) => (
+                  {packages.map((pkg) => (
                     <PackageCard
                       key={pkg.id}
                       name={pkg.name}
                       price={pkg.price}
-                      features={pkg.features}
+                      includedMinutes={pkg.includedMinutes}
+                      overageRate={pkg.overageRate}
                       isPopular={pkg.isPopular}
                       isSelected={selectedPackage === pkg.id}
                       onSelect={() => setSelectedPackage(pkg.id)}
@@ -90,7 +100,7 @@ const Index = () => {
                 </div>
               ) : (
                 <div className="animate-fade-up" style={{ animationDelay: '0.2s' }}>
-                  <CreditSlider value={credits} onChange={setCredits} />
+                  <CreditSlider value={minutes} onChange={setMinutes} />
                 </div>
               )}
             </div>
@@ -112,7 +122,8 @@ const Index = () => {
                 planType={planType}
                 packageName={currentPackage?.name}
                 packagePrice={currentPackage?.price}
-                credits={credits}
+                minutes={minutes}
+                minuteRate={getRate(minutes)}
                 includePhone={includePhone}
                 phoneFee={PHONE_FEE}
               />

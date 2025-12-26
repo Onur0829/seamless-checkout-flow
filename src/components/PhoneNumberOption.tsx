@@ -12,7 +12,7 @@ const PhoneNumberOption = ({ checked, onChange, extraFee }: PhoneNumberOptionPro
     <div
       onClick={() => onChange(!checked)}
       className={`glass-card p-5 cursor-pointer transition-all duration-300 ${
-        checked ? 'border-primary bg-primary/5' : ''
+        checked ? 'border-primary bg-primary/10 ring-2 ring-primary/20' : ''
       }`}
     >
       <div className="flex items-center justify-between">
@@ -28,7 +28,7 @@ const PhoneNumberOption = ({ checked, onChange, extraFee }: PhoneNumberOptionPro
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <span className="text-sm font-medium">+₺{extraFee}</span>
+          <span className={`text-sm font-medium ${checked ? 'text-primary' : ''}`}>+${extraFee.toFixed(2)}</span>
           <Checkbox
             checked={checked}
             onCheckedChange={onChange}
