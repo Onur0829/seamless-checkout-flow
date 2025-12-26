@@ -28,7 +28,10 @@ const PhoneNumberOption = ({ checked, onChange, extraFee }: PhoneNumberOptionPro
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <span className={`text-sm font-medium ${checked ? 'text-primary' : ''}`}>+${extraFee.toFixed(2)}</span>
+          <div className="text-right">
+            <span className={`text-sm font-medium ${checked ? 'text-primary' : ''}`}>+${extraFee.toFixed(2)}</span>
+            <p className="text-xs text-muted-foreground">tek seferlik</p>
+          </div>
           <Checkbox
             checked={checked}
             onCheckedChange={onChange}
