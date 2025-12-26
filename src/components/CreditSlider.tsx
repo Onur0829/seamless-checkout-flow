@@ -5,15 +5,25 @@ interface CreditSliderProps {
   onChange: (value: number) => void;
 }
 
+const getRate = (minutes: number): number => {
+  if (minutes <= 2500) return 0.14;
+  if (minutes <= 7000) return 0.13;
+  return 0.12;
+};
+
 const CreditSlider = ({ value, onChange }: CreditSliderProps) => {
   const marks = [500, 2500, 5000, 7500, 10000];
+  const rate = getRate(value);
+  const totalPrice = value * rate;
   
   return (
     <div className="glass-card p-8">
       <div className="text-center mb-8">
-        <p className="text-muted-foreground text-sm mb-2">Seçilen Kontör</p>
-        <div className="price-display">{value.toLocaleString('tr-TR')}</div>
-        <p className="text-muted-foreground text-sm mt-1">kontör</p>
+        <p className="text-muted-foreground text-sm mb-2">Seçilen Dakika</p>
+        <div className="price-display">{value.toLocaleString()} dk</div>
+        <p className="text-sm mt-3 text-primary font-medium">
+          Birim fiyat: ${rate.toFixed(2)}/dk
+        </p>
       </div>
       
       <div className="px-4">
@@ -34,16 +44,24 @@ const CreditSlider = ({ value, onChange }: CreditSliderProps) => {
                 value >= mark ? 'text-foreground font-medium' : 'text-muted-foreground'
               }`}
             >
-              {mark.toLocaleString('tr-TR')}
+              {mark.toLocaleString()}
             </span>
           ))}
         </div>
       </div>
       
-      <div className="mt-8 pt-6 border-t border-border">
+      <div className="mt-8 pt-6 border-t border-border space-y-3">
+        <div className="flex justify-between items-center text-sm text-muted-foreground">
+          <span>Fiyatlandırma</span>
+          <span>
+            {value <= 2500 && '500–2,500 dk: $0.14/dk'}
+            {value > 2500 && value <= 7000 && '2,500–7,000 dk: $0.13/dk'}
+            {value > 7000 && '7,000–10,000 dk: $0.12/dk'}
+          </span>
+        </div>
         <div className="flex justify-between items-center">
-          <span className="text-muted-foreground">Kontör Ücreti</span>
-          <span className="font-semibold">₺{(value * 0.05).toFixed(2)}</span>
+          <span className="text-muted-foreground">Toplam Ücret</span>
+          <span className="font-semibold">${totalPrice.toFixed(2)}</span>
         </div>
       </div>
     </div>
