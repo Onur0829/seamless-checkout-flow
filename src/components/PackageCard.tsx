@@ -14,6 +14,7 @@ const PackageCard = ({
   name, 
   price, 
   includedMinutes, 
+  overageRate,
   isPopular, 
   isSelected, 
   onSelect 
@@ -39,6 +40,10 @@ const PackageCard = ({
         <li className="flex items-center gap-2 text-sm text-muted-foreground">
           <Check className="w-4 h-4 text-primary" />
           {includedMinutes.toLocaleString('tr-TR')} dakika dahil
+        </li>
+        <li className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Check className="w-4 h-4 text-primary" />
+          ${overageRate}/dk aşım ücreti
         </li>
       </ul>
       <div className={`absolute bottom-0 left-0 right-0 h-1 bg-primary transition-transform duration-300 origin-left ${isSelected ? 'scale-x-100' : 'scale-x-0'}`} />
